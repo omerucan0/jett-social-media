@@ -1,5 +1,7 @@
 # Image generation
 
+For combined previews, use [topic-led-art-direction.md](topic-led-art-direction.md) instead of the separate-post generation instructions below.
+
 Use the built-in image generation tool once per post. Twelve separate calls and twelve separate files are preferred because each composition needs its own text-safe area.
 
 ## Prompt skeleton

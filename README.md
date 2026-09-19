@@ -14,12 +14,15 @@
 
 Jett turns a real brand brief into twelve coordinated 4:5 posts: original background imagery, exact typography, a deliberate feed rhythm, a 3×4 review sheet, and upload-ready files. Image generation handles the scenes. A deterministic HTML renderer handles the words. Nothing guesses your logo, invents testimonials, or claims a campaign was published when it was not.
 
+Each invocation derives its visual direction from the current subject and brand. For one editorial concept feed, Jett also supports a combined 12-tile preview with sparse, exact overlays; that preview is not twelve full-resolution production posts. See [topic-led art direction](references/topic-led-art-direction.md).
+
 ## What ships
 
 | Output | Details |
 | --- | --- |
 | 12 finished posts | Individual PNG files, each **1080 × 1350** |
-| One coherent feed | A fixed 3×4 composition with balanced text placement |
+| One coherent feed | A 3×4 review sheet with balanced text placement for production posts |
+| Combined concept preview | One text-free composite with deterministic overlays and its own visual review |
 | Brand-specific art direction | Brand colors, type, offer, audience, language, and optional logo |
 | Review evidence | Contact sheet, technical QA report, and recorded visual-review status |
 | Clean handoff | Ready-to-upload assets plus a packaged ZIP |
@@ -76,7 +79,9 @@ If Node.js is missing, install a current LTS release from [nodejs.org/download](
 
 ## Install the skill
 
-Clone the repository into your Codex skills directory:
+This repository is **private**. Downloads and cloning require a GitHub account with repository access. Authenticate Git or GitHub CLI before installing.
+
+Clone the current `main` branch into your Codex skills directory:
 
 ```bash
 git clone https://github.com/omerucan0/jett-social-media.git ~/.codex/skills/jett-social-media
@@ -95,6 +100,29 @@ Use $jett-social-media to create a 12-post Instagram launch campaign
 for my brand using the attached logo, brand guidelines, and reference images.
 ```
 
+### Download or update
+
+- [Latest packaged skill ZIP](https://github.com/omerucan0/jett-social-media/releases/latest/download/jett-social-media.zip) — stable URL for the newest published release.
+- [Latest release and checksums](https://github.com/omerucan0/jett-social-media/releases/latest) — version notes and SHA-256 checksum.
+- [Current main source ZIP](https://github.com/omerucan0/jett-social-media/archive/refs/heads/main.zip) — follows the newest code on `main`, including changes not yet released.
+
+Sign in with repository access when using these links. Anonymous access to a private repository may return 404. With authenticated GitHub CLI, download the newest release into a fresh directory:
+
+```bash
+gh release download --repo omerucan0/jett-social-media --pattern jett-social-media.zip --pattern SHA256SUMS --dir jett-download
+```
+
+Extract the `jett-social-media/` folder from the release ZIP into your Codex skills directory. Preserve any customized existing installation before replacing it. A download is a snapshot; installed copies do not update automatically.
+
+For a clean Git installation, inspect local changes and then update from `main`:
+
+```bash
+git -C ~/.codex/skills/jett-social-media status --short
+git -C ~/.codex/skills/jett-social-media pull --ff-only origin main
+```
+
+On Windows, use `"$HOME\.codex\skills\jett-social-media"` for that path. If the working tree has local edits or has diverged, preserve and reconcile those changes before updating. Open a new Codex task to load the updated skill.
+
 ### What to provide
 
 Share the brand name, sector, offer, audience, campaign goal, language, colors, and preferred typography. Logo files, approved evidence, reference images, brand voice, and a call to action are helpful when available.
@@ -104,17 +132,19 @@ Missing colors or type can be proposed, but they remain explicitly marked as pro
 ## How it works
 
 1. **Understand the brief.** Separate brand references, visual inspiration, logo assets, and proof.
-2. **Plan twelve posts.** Build a connected narrative from the opening problem to the final call to action.
-3. **Generate clean scenes.** Create one text-free 4:5 background per post, with space reserved for its typography.
-4. **Render the exact copy.** Use HTML, Playwright, and Sharp to produce deterministic final artwork.
+2. **Choose the art direction and delivery mode.** Derive a topic-specific visual world. Plan a production campaign or a combined editorial preview according to the request.
+3. **Generate clean scenes.** For production, create one text-free 4:5 background per post. For a combined preview, compose twelve related tiles together, then overlay copy using the actual quiet areas.
+4. **Render the exact copy.** Production uses HTML, Playwright, and Sharp. A combined preview uses a task-local deterministic overlay source fitted to the generated image.
 5. **Verify the campaign.** Check dimensions, filenames, unique image content, layout rules, and supported claims.
 6. **Review and deliver.** Inspect the feed, record the visual-review result, and package the final files.
 
 The visual-review status stays `UNVERIFIED` until a person or vision-capable agent actually checks the artwork.
 
-## Manual workflow
+## Manual production workflow
 
-Create a campaign from the bundled template:
+For a combined concept preview, follow [the preview workflow](references/topic-led-art-direction.md#combined-editorial-preview); the production renderer does not accept a composite as twelve backgrounds.
+
+For separate production posts, create a campaign from the bundled template:
 
 Windows:
 

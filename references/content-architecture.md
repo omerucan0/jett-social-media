@@ -1,5 +1,7 @@
 # Content architecture
 
+The default story below serves conversion-oriented production campaigns. Editorial identity previews use [topic-led-art-direction.md](topic-led-art-direction.md); do not force this narrative or manifest onto a single composite.
+
 ## Default 12-post story
 
 - Posts 01-03: problem, tension, or aspiration.
